@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "module": "commonjs",
+        "target": "es2017",
+        "moduleResolution": "node",
+        "experimentalDecorators": true,
+        "jsx": "react",
+        "noUnusedLocals": false,
+        "noUnusedParameters": false
+    },
+    "include": [
+        "./src/**/*"
+    ],
+    "exclude": [
+        "./node_modules/**/*"
+    ]
+}

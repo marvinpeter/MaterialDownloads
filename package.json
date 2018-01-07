@@ -1,0 +1,41 @@
+{
+  "name": "chrome-downloads",
+  "version": "1.0.0",
+  "description": "Chrome toolbar download manage.",
+  "scripts": {
+    "buildProduction": "cross-env NODE_ENV=production npm run compile",
+    "build": "cross-env NODE_ENV=development npm run compile",
+    "compile": "ts-node ./node_modules/webpack/bin/webpack --config webpack.config.ts --colors"
+  },
+  "author": "Marvin Peter",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chrome": "0.0.57",
+    "@types/copy-webpack-plugin": "^4.0.1",
+    "@types/extract-text-webpack-plugin": "^3.0.0",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "@types/webpack": "^3.8.2",
+    "awesome-typescript-loader": "^3.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "classnames": "^2.2.5",
+    "copy-webpack-plugin": "^4.3.1",
+    "cross-env": "^5.1.3",
+    "css-loader": "^0.28.8",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "postcss-clean": "^1.1.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-loader": "^2.0.9",
+    "postcss-nested-ancestors": "^1.0.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1",
+    "typings-for-css-modules-loader": "^1.7.0",
+    "uglifyjs-webpack-plugin": "^1.1.6",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {}
+}

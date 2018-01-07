@@ -1,0 +1,79 @@
+{
+    "rules": {
+        "new-parens": true,
+        "no-arg": true,
+        "no-bitwise": true,
+        "no-conditional-assignment": true,
+        "no-consecutive-blank-lines": false,
+        "ban-types": {
+            "severity": "warning",
+            "options": [["Object", "Use {} instead."], ["String", "User string instead."]]
+        },
+        "member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
+        "no-inferrable-types": true,
+        "no-internal-module": true,
+        "no-parameter-reassignment": true,
+        "no-var-requires": true,
+        "only-arrow-functions": {
+            "severity": "warning",
+            "options": ["allow-declarations", "allow-named-functions"]
+        },
+        "curly": true,
+        "no-construct": true,
+        "no-duplicate-super": true,
+        "no-duplicate-switch-case": true,
+        "no-duplicate-variable": {
+            "severity": "warning"
+        },
+        "no-empty": [true, "allow-empty-catch"],
+        "no-eval": true,
+        "no-implicit-dependencies": {
+            "severity": "warning"
+        },
+        "no-invalid-template-strings": {
+            "severity": "warning"
+        },
+        "no-invalid-this": true,
+        "no-return-await": true,
+        "no-this-assignment": true,
+        "no-var-keyword": true,
+        "prefer-conditional-expression": {
+            "severity": "warning"
+        },
+        "triple-equals": {
+            "severity": "warning"
+        },
+        "typeof-compare": true,
+        "align": {
+            "severity": "warning",
+            "options":"parameters"
+        },
+        "array-type": [true, "array"],
+        "arrow-return-shorthand": {
+            "severity": "warning"
+        },
+        "binary-expression-operand-order": true,
+        "class-name": true,
+        "interface-name": {
+            "severity": "warning",
+            "options": "never-prefix"
+        },
+        "interface-over-type-literal": {
+            "severity": "warning"
+        },
+        "ordered-imports": false,
+        "prefer-switch": {
+            "severity": "warning"
+        },
+        "prefer-template": {
+            "severity": "warning",
+            "options": "allow-single-concat"
+        },
+        "quotemark": [true, "single", "jsx-double"],
+        "semicolon": {
+            "severity": "warning",
+            "options": "never"
+        },
+        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+    }
+}

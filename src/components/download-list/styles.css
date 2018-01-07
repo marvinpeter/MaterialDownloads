@@ -1,0 +1,6 @@
+.downloads {
+	min-height: 150px;
+	max-height: 400px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

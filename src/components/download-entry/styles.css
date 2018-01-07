@@ -1,0 +1,154 @@
+/* Progress bar */
+.progressBar {
+  visibility: hidden;
+  margin: 2px 0;
+  visibility: hidden;
+  background: #ededed;
+  border: 1px solid #ededed;
+}
+
+.progress {
+  width: 0;
+  height: 3px;
+}
+
+.progressBarDownloading {
+  & .progress {
+    background: #52b3ff;
+  }
+  visibility: visible !important;
+}
+
+.progressBarPaused {
+  & .progress {
+    background: #ffcc00;
+  }
+  visibility: visible !important;
+}
+
+.nameWrapper {
+  margin-top: -3px;
+}
+
+.name {
+  /*-webkit-padding-end: 16px;*/
+  max-width: 400px;
+  word-break: break-all;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  padding-right: 40px;
+  color: #555;
+  font-weight: bold;
+  display: inline-block;
+  max-width: 320px;
+}
+
+.nameOpenable {
+  &:active {
+    color: rgb(0, 115, 192) !important;
+  }
+
+  &:hover {
+    color: rgb(1, 142, 236) !important;
+  }
+}
+
+.nameCrossedOut {
+  text-decoration: line-through;
+}
+
+.cutText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 310px;
+  height: 1.2em;
+  white-space: nowrap;
+}
+
+
+/* Remove buttons */
+.cancelButton {
+  color: #666;
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+  cursor: default;
+  font-family: verdana, sans-serif;
+  font-size: 12px;
+  text-align: center;
+  width: 18px;
+  height: 18px;
+  line-height: 16px;
+  text-decoration: none;
+  top: 0;
+  right: 0;
+  display: none;
+
+  &:hover {
+    color: rgb(255, 98, 98);
+  }
+
+  &:active {
+    color: #c70000;
+  }
+}
+
+.download {
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+  padding: 10px 10px 10px 50px; /* 10px 50px;  */
+  height: 41px;
+  font-size: 12px;
+  border: 2px solid transparent;
+
+  &:hover {
+    & .cancelButton {
+      display: initial;
+    }
+    background: #edf9ff; /* DFF5FF | E2F5FF | F9FDFF */
+    border: 2px solid #d0e5ff; /* 9ADFFF | D5E9FF */
+  }
+
+  &:active {
+    background: #dff5ff;
+    border: 2px solid #d0e5ff;
+  }
+}
+
+.download:nth-of-type(2n) {
+  background: #f8f8f8;
+}
+
+.icon {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  top: 10px;
+  left: 10px;
+}
+
+.controls a {
+  -webkit-margin-end: 16px;
+  color: #777;
+  text-decoration: none;
+  /*border-bottom:1px solid #ccc;*/
+  &:active {
+    border-bottom: 1px solid #aaa !important;
+    color: rgb(0, 115, 192) !important;
+  }
+
+  &:hover {
+    border-bottom: 1px solid #d0d0d0 !important;
+    color: rgb(1, 142, 236) !important;
+  }
+}
+
+.status {
+  color: #999;
+  white-space: nowrap;
+}

@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "Fire Downloads",
+    "author": "Marvin Peter",
+    "version": "1.0.0",
+    "homepage_url": "https://www.marvinpeter.com",
+    "description": "Manage your downloads from Chrome's toolbar like you would do with Firefox.",
+    "icons": {
+        "32": "icons/icon_32.png",
+        "48": "icons/icon_48.png",
+        "64": "icons/icon_64.png",
+        "128": "icons/icon_128.png",
+        "256": "icons/icon_256.png"
+    },
+    "background": {
+        "page": "views/background.html"
+    },
+    "browser_action": {
+        "default_icon": "icons/icon_32.png",
+        "default_popup": "views/popup.html",
+        "default_title": "Downloads"
+    },
+    "options_ui": {
+        "page": "views/options.html",
+        "chrome_style": true
+    },
+    "minimum_chrome_version": "60.0.0.0",
+    "permissions": [
+        "tabs",
+        "downloads",
+        "downloads.open",
+        "downloads.shelf",
+        "storage"
+    ]
+}
