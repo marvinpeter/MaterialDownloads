@@ -1,4 +1,4 @@
-import Options from './options'
+import * as options from './options'
 
 const canvas = document.createElement('canvas')
 canvas.width = 38
@@ -76,7 +76,7 @@ function getIcon() {
  * Update color based on whether dark mode is used or not
  */
 export async function updateColor() {
-    color = (await Options.iconColor) === 'dark' ? '#d8d8d8' : '#5e5e5e'
+    color = (await options.getIconColor()) === 'dark' ? '#d8d8d8' : '#5e5e5e'
 }
 
 /**

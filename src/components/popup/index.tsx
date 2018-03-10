@@ -1,6 +1,5 @@
 import * as React from 'react'
 import DownloadList from '../download-list'
-
 import * as style from './styles.css'
 
 export default class Popup extends React.Component {

@@ -3,27 +3,28 @@
   visibility: hidden;
   margin: 2px 0;
   visibility: hidden;
-  background: #ededed;
-  border: 1px solid #ededed;
+  background: var(--color-progress);
 }
 
 .progress {
   width: 0;
-  height: 3px;
+  height: 5px;
 }
 
 .progressBarDownloading {
   & .progress {
-    background: #52b3ff;
+    background: var(--color-progress-downloading);
   }
   visibility: visible !important;
+  margin: 8px 0px;
 }
 
 .progressBarPaused {
   & .progress {
-    background: #ffcc00;
+    background: var(--color-progress-paused);
   }
   visibility: visible !important;
+  margin: 8px 0px;
 }
 
 .nameWrapper {
@@ -40,7 +41,7 @@
   text-overflow: ellipsis;
   display: block;
   padding-right: 40px;
-  color: #555;
+  color: var(--color-text);
   font-weight: bold;
   display: inline-block;
   max-width: 320px;
@@ -48,11 +49,11 @@
 
 .nameOpenable {
   &:active {
-    color: rgb(0, 115, 192) !important;
+    color: var(--color-link-active);
   }
 
   &:hover {
-    color: rgb(1, 142, 236) !important;
+    color: var(--color-link-hover);
   }
 }
 
@@ -69,86 +70,102 @@
 }
 
 
-/* Remove buttons */
-.cancelButton {
-  color: #666;
+/* Remove button */
+.cancelRemoveButton {
+  color: var(--color-close);
   display: inline-block;
   position: absolute;
   z-index: 2;
   cursor: default;
-  font-family: verdana, sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   text-align: center;
   width: 18px;
   height: 18px;
   line-height: 16px;
   text-decoration: none;
-  top: 0;
-  right: 0;
+  top: 5px;
+  right: 10px;
   display: none;
 
   &:hover {
-    color: rgb(255, 98, 98);
+    color: var(--color-close-hover);
   }
 
   &:active {
-    color: #c70000;
+    color: var(--color-close-active);
   }
-}
-
-.download {
-  position: relative;
-  -webkit-user-select: none;
-  user-select: none;
-  cursor: default;
-  padding: 10px 10px 10px 50px; /* 10px 50px;  */
-  height: 41px;
-  font-size: 12px;
-  border: 2px solid transparent;
-
-  &:hover {
-    & .cancelButton {
-      display: initial;
-    }
-    background: #edf9ff; /* DFF5FF | E2F5FF | F9FDFF */
-    border: 2px solid #d0e5ff; /* 9ADFFF | D5E9FF */
-  }
-
-  &:active {
-    background: #dff5ff;
-    border: 2px solid #d0e5ff;
-  }
-}
-
-.download:nth-of-type(2n) {
-  background: #f8f8f8;
 }
 
 .icon {
+  margin-top: 0;
+  margin-left: 0;
+  width: 32px;
   position: absolute;
+}
+
+.details {
+  margin-left: 42px;
+}
+
+.entry {
+  position: relative;
+
+  & .content {
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+    padding: 10px 10px 10px 10px; /* 10px 50px;  */
+    font-size: 12px;
+    border-radius: 2px;
+    background: var(--color-primary);
+    height: 41px;
+    border: 2px solid transparent;
+
+    &:hover {
+      & .cancelRemoveButton {
+        display: initial;
+      }
+      border: 2px solid var(--color-border);
+    }
+
+    &:active {
+      border: 2px solid var(--color-border);
+    }
+  }
+}
+
+.entry:nth-of-type(2n) {
+  & .content {
+    background: var(--color-secondary);
+  }
+}
+
+.img {
   width: 32px;
   height: 32px;
   top: 10px;
   left: 10px;
+  border-right: 1px;
 }
 
-.controls a {
+.action {
   -webkit-margin-end: 16px;
-  color: #777;
+  color: var(--color-action);
   text-decoration: none;
+
   /*border-bottom:1px solid #ccc;*/
   &:active {
-    border-bottom: 1px solid #aaa !important;
-    color: rgb(0, 115, 192) !important;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-action-active);
   }
 
   &:hover {
-    border-bottom: 1px solid #d0d0d0 !important;
-    color: rgb(1, 142, 236) !important;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-action-hover);
   }
 }
 
 .status {
-  color: #999;
+  color: var(--color-status);
   white-space: nowrap;
 }

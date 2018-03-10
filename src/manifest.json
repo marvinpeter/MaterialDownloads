@@ -1,8 +1,9 @@
 {
     "manifest_version": 2,
-    "name": "Fire Downloads",
+    "short_name": "Fire Downloads",
+    "name": "Fire Download - Download Manager",
     "author": "Marvin Peter",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "homepage_url": "https://www.marvinpeter.com",
     "description": "Manage your downloads from Chrome's toolbar like you would do with Firefox.",
     "icons": {

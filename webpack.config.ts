@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { NamedModulesPlugin, optimize, DefinePlugin } from 'webpack'
+import { NamedModulesPlugin, optimize, DefinePlugin, SplitChunksPlugin } from 'webpack'
 import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
 import * as CopyWebpackPlugin from 'copy-webpack-plugin'
 import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin'
@@ -25,13 +25,6 @@ const postcssPlugins = [
 const webpackPlugins: DefinePlugin[] = [
     new DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development')
-    }),
-    new optimize.CommonsChunkPlugin({
-        name: 'helpers',
-        minChunks: m => m && /helpers/.test(m.resource)
-    }),
-    new optimize.CommonsChunkPlugin({
-        name: 'common'
     }),
     new ExtractTextPlugin('../styles/[name].css'),
     new CopyWebpackPlugin([
@@ -74,6 +67,8 @@ export default {
 
     target: 'web',
 
+    mode: isProduction ? 'production' : 'development',
+
     entry: {
         popup: './src/popup.tsx',
         background: './src/background.ts',
@@ -89,6 +84,25 @@ export default {
     externals: {
         'react': 'React',
         'react-dom': 'ReactDOM'
+    },
+
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                helpers: {
+                    name: 'helpers',
+                    chunks: 'initial',
+                    test: /helpers/,
+                    enforce: true
+                },
+                vendor: {
+                    name: 'vendor',
+                    chunks: 'initial',
+                    test: /node_modules/,
+                    enforce: true
+                }
+            }
+        }
     },
 
     module: {

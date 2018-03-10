@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { sendMessage, MessageType } from './helpers/messages'
-import Options from './helpers/options'
+import * as options from './helpers/options'
 
 class OptionsView extends React.Component {
     public state = {
@@ -11,7 +11,7 @@ class OptionsView extends React.Component {
     }
 
     public componentWillMount() {
-        Options.all.then(res => this.setState(res))
+        options.getAll().then(res => this.setState(res))
     }
 
     private showUpdateMessage = () => {
@@ -21,14 +21,14 @@ class OptionsView extends React.Component {
 
     private updateIconColor = (e: React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({ iconColor: e.target.value })
-        Options.iconColor = e.target.value
+        options.setIconColor(e.target.value)
         this.showUpdateMessage()
         sendMessage(MessageType.UpdateIcon)
     }
 
     public updateStartupClear = (e: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({ startupClear: e.target.checked })
-        Options.startupClear = e.target.checked
+        options.setStartupClear(e.target.checked)
         this.showUpdateMessage()
     }
 
@@ -53,4 +53,4 @@ class OptionsView extends React.Component {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => ReactDOM.render(<OptionsView />, document.getElementById('options')));
+document.addEventListener('DOMContentLoaded', () => ReactDOM.render(<OptionsView />, document.getElementById('options')))

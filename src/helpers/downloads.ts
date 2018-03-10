@@ -25,8 +25,8 @@ export async function fetch(id: number) {
 /**
  * Get all download items from Chrome
  */
-export function fetchAll() {
-    return queryDownloads({ orderBy: ['-startTime'] })
+export async function fetchAll() {
+    return (await queryDownloads({ orderBy: ['-startTime'], filenameRegex: '.*' })).filter(x => x.filename !== '')
 }
 
 /**
@@ -36,7 +36,7 @@ export async function fetchIds() {
     return (await fetchAll()).map(x => x.id)
 }
 
-export type Action = 'pause' | 'cancel' | 'resume' | 'retry' | 'show' | 'open'
+export type Action = 'pause' | 'cancel' | 'resume' | 'retry' | 'show' | 'open' | 'remove' | 'acceptDanger'
 
 /**
  * Execute on action upon an download item
@@ -51,6 +51,10 @@ export async function action(id: number, action: Action) {
             return chrome.downloads.show(id)
         case 'open':
             return chrome.downloads.open(id)
+        case 'acceptDanger':
+            return chrome.downloads.acceptDanger(id, undefined)
+        case 'remove':
+            return chrome.downloads.erase({ id }, undefined)
         default:
             return chrome.downloads[action](id)
     }
@@ -62,7 +66,7 @@ export async function action(id: number, action: Action) {
  */
 export function getIcon(id: number) {
     return new Promise<string>(resolve =>
-        chrome.downloads.getFileIcon(id, {}, res => resolve(res))
+        chrome.downloads.getFileIcon(id, {}, resolve)
     )
 }
 

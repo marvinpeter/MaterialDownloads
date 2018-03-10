@@ -3,43 +3,38 @@ const defaults = {
     startupClear: false
 }
 
-export default class Settings {
-    public static setOptions(data: { [key: string]: any }) {
-        return new Promise<void>(resolve => chrome.storage.sync.set(data, () => resolve()))
-    }
-
-    public static setOption<T>(key: string, value: T) {
-        return Settings.setOptions({ [key]: value })
-    }
-    
-    public static getOptions<T extends { [key: string]: any }>(data: T) {
-        return new Promise<T>(resolve => chrome.storage.sync.get(data, res => resolve(res as T)))
-    }
-
-    public static async getOption<T>(key: string, defaultValue?: T) {
-        return (await Settings.getOptions({ [key]: defaultValue }))[key] as T
-    }
-
-    public static get all() {
-        return Settings.getOptions(defaults)
-    }
-
-    public static get iconColor() {
-        return Settings.getOption('iconColor', defaults.iconColor)
-    }
-
-    public static set iconColor(value: any) {
-        Settings.setOption('iconColor', value)
-    }
-
-    public static get startupClear() {
-        return Settings.getOption('startupClear', defaults.startupClear)
-    }
-
-    public static set startupClear(value: any) {
-        Settings.setOption('startupClear', value)
-    }
+function setOptions(data: { [key: string]: any }) {
+    return new Promise<void>(resolve => chrome.storage.sync.set(data, () => resolve()))
 }
 
+function setOption<T>(key: string, value: T) {
+    return setOptions({ [key]: value })
+}
 
+function getOptions<T extends { [key: string]: any }>(data: T) {
+    return new Promise<T>(resolve => chrome.storage.sync.get(data, res => resolve(res as T)))
+}
 
+async function getOption<T>(key: string, defaultValue?: T) {
+    return (await getOptions({ [key]: defaultValue }))[key] as T
+}
+
+export async function getAll() {
+    return getOptions(defaults)
+}
+
+export function getIconColor() {
+    return getOption('iconColor', defaults.iconColor)
+}
+
+export function setIconColor(value: any) {
+    setOption('iconColor', value)
+}
+
+export function getStartupClear() {
+    return getOption('startupClear', defaults.startupClear)
+}
+
+export function setStartupClear(value: any) {
+    setOption('startupClear', value)
+}

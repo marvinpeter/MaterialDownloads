@@ -2,12 +2,11 @@ import * as React from 'react'
 import * as downloads from '../../helpers/downloads'
 import { sendMessage, MessageType } from '../../helpers/messages'
 import DownloadEntry from './../download-entry'
-
 import * as style from './styles.css'
 
 export default class DownloadList extends React.Component {
     public state = {
-        items: []
+        items: [] as number[]
     }
 
     private fetchDownloads = () => {
@@ -25,6 +24,13 @@ export default class DownloadList extends React.Component {
         this.fetchDownloads()
     }
 
+    /**
+     * Clear refresh list
+     */
+    public onRemove = (id: number) => {
+        this.setState({ items: this.state.items.filter(x => x !== id) })
+    }
+
     public componentWillMount() {
         // Listen for changes concerning downloads
         chrome.downloads.search({ limit: 0 }, () => this.fetchDownloads())
@@ -33,6 +39,6 @@ export default class DownloadList extends React.Component {
     }
 
     public render() {
-        return <div className={style.downloads}>{this.state.items.map(id => <DownloadEntry key={id} id={id} />)}</div>
+        return <div className={style.downloads}>{this.state.items.map(id => <DownloadEntry key={id} id={id} onRemove={() => this.onRemove(id)} />)}</div>
     }
 }

@@ -1,10 +1,10 @@
 /// <reference path='../node_modules/@types/chrome/index.d.ts' />
-import Options from './helpers/options'
+import * as options from './helpers/options'
 import * as downloads from './helpers/downloads'
 import * as toolbarIcon from './helpers/toolbar-icon'
 import { onMessageReceived, MessageType } from './helpers/messages'
 
-Options.startupClear.then((res: boolean) => res && downloads.clear())
+options.getStartupClear().then((res: boolean) => res && downloads.clear())
 
 // Disable download bar
 chrome.downloads.setShelfEnabled(false)
@@ -22,7 +22,7 @@ function refreshToolbarIcon(items: chrome.downloads.DownloadItem[]) {
 	}
 
 	if (!timer) {
-		timer = setInterval(refresh, 500)
+		timer = setInterval(refresh, 500) as any
 	}
 
 	let receivedBytes = 0
