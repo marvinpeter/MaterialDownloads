@@ -1,0 +1,39 @@
+.nameOpenable {
+  &:active {
+    color: var(--color-link-active);
+    cursor: pointer;
+  }
+
+  &:hover {
+    color: var(--color-link-hover);
+    cursor: pointer;
+  }
+}
+
+.nameCrossedOut {
+  text-decoration: line-through;
+}
+
+.cutText {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 250px;
+  white-space: nowrap;
+}
+
+.statusDetails {
+  margin: -5px 0 0 0;
+}
+
+.url {
+  font-size: 0.75em;
+  margin: 0;
+}
+
+.status {
+  font-size: 0.85em
+}
+
+.avatar {
+  border-radius: 0 
+}

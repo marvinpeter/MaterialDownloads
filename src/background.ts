@@ -2,9 +2,9 @@
 import * as options from './helpers/options'
 import * as downloads from './helpers/downloads'
 import * as toolbarIcon from './helpers/toolbar-icon'
-import { onMessageReceived, MessageType } from './helpers/messages'
+import * as message from './helpers/message'
 
-options.getStartupClear().then((res: boolean) => res && downloads.clear())
+options.getOption('startupClear').then((res: boolean) => res && downloads.clear())
 
 // Disable download bar
 chrome.downloads.setShelfEnabled(false)
@@ -47,7 +47,7 @@ function refresh() {
 
 chrome.downloads.onCreated.addListener(refresh)
 chrome.downloads.onChanged.addListener(delta => (delta.state || delta.paused) && refresh())
-onMessageReceived(MessageType.UpdateIcon, () => toolbarIcon.updateColor().then(refresh))
-onMessageReceived(MessageType.SetSeen, (items: number[]) => items.forEach(x => seen.add(x)))
+message.on(message.Type.UpdateIcon, () => toolbarIcon.updateColor().then(refresh))
+message.on(message.Type.SetSeen, (items: number[]) => items.forEach(x => seen.add(x)))
 
 toolbarIcon.updateColor().then(refresh)

@@ -1,0 +1,12 @@
+.actionButton {
+  margin: 0 5px 0 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.primary {
+  color: #3367d6;
+  text-transform: uppercase;
+}

@@ -51,6 +51,7 @@ function getProgressIcon(progress: number) {
  * Generate standard toolbar icon
  */
 function getIcon() {
+    console.log(color)
     ctx.clearRect(0, 0, 38, 38)
 
     ctx.strokeStyle = color
@@ -68,7 +69,6 @@ function getIcon() {
 
     const icon: any = { imageData: {} }
     icon.imageData[size] = ctx.getImageData(0, 0, size, size)
-
     return icon as chrome.browserAction.TabIconDetails
 }
 
@@ -76,7 +76,7 @@ function getIcon() {
  * Update color based on whether dark mode is used or not
  */
 export async function updateColor() {
-    color = (await options.getIconColor()) === 'dark' ? '#d8d8d8' : '#5e5e5e'
+    color = (await options.getOption('iconColor')) === 'dark' ? '#d8d8d8' : '#5e5e5e'
 }
 
 /**

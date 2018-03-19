@@ -24,7 +24,7 @@ const postcssPlugins = [
 
 const webpackPlugins: DefinePlugin[] = [
     new DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(isProduction ? 'production' : 'development')
+        'isDebug': JSON.stringify(!isProduction)
     }),
     new ExtractTextPlugin('../styles/[name].css'),
     new CopyWebpackPlugin([

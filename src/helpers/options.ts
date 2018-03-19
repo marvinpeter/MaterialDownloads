@@ -1,40 +1,38 @@
-const defaults = {
+import * as message from './message'
+
+export interface Options {
+    iconColor: 'light' | 'dark'
+    theme: 'light' | 'dark'
+    startupClear: boolean
+    useAppBar: boolean
+    colorful: boolean
+}
+
+const defaults: Options = {
     iconColor: 'light',
-    startupClear: false
+    theme: 'light',
+    startupClear: false,
+    useAppBar: true,
+    colorful: true
 }
 
-function setOptions(data: { [key: string]: any }) {
-    return new Promise<void>(resolve => chrome.storage.sync.set(data, () => resolve()))
+export function getOptions() {
+    return new Promise<Options>(resolve =>
+        chrome.storage.sync.get(defaults, res => resolve(res as Options))
+    )
 }
 
-function setOption<T>(key: string, value: T) {
-    return setOptions({ [key]: value })
+export function getOption<T extends keyof Options>(option: T) {
+    const defaultValue = defaults[option]
+    return new Promise<Options[T]>(resolve =>
+        chrome.storage.sync.get({ [option as string]: defaultValue }, (res: Options) => resolve(res[option]))
+    )
 }
 
-function getOptions<T extends { [key: string]: any }>(data: T) {
-    return new Promise<T>(resolve => chrome.storage.sync.get(data, res => resolve(res as T)))
+export function setOptions(data: Options) {
+    chrome.storage.sync.set(data)
 }
 
-async function getOption<T>(key: string, defaultValue?: T) {
-    return (await getOptions({ [key]: defaultValue }))[key] as T
-}
-
-export async function getAll() {
-    return getOptions(defaults)
-}
-
-export function getIconColor() {
-    return getOption('iconColor', defaults.iconColor)
-}
-
-export function setIconColor(value: any) {
-    setOption('iconColor', value)
-}
-
-export function getStartupClear() {
-    return getOption('startupClear', defaults.startupClear)
-}
-
-export function setStartupClear(value: any) {
-    setOption('startupClear', value)
+export async function setOption<T extends keyof Options, V extends Options[T]>(key: string, value: V) {
+    chrome.storage.sync.set({ [key]: value })
 }
