@@ -1,6 +1,8 @@
-import * as React from 'react'
 import * as classNames from 'classnames'
-import * as style from './styles.css'
+import * as React from 'react'
+import { pure } from 'recompose'
+
+import * as style from './styles'
 
 export interface ActionButtonProps {
     primary?: boolean
@@ -8,8 +10,9 @@ export interface ActionButtonProps {
     children: any
 }
 
-export default function ActionButton({ primary, onClick, children }: ActionButtonProps) {
-    return (
-        <a className={classNames(style.actionButton, { [style.primary]: primary })} onClick={onClick}>{children}</a>
-    )
-}
+export const ActionButton = ({ primary, onClick, children }: ActionButtonProps) => (
+    <a className={classNames(style.actionButton, { [style.primary]: primary })}
+        onClick={onClick}>{children}</a>
+)
+
+export default pure<ActionButtonProps>(ActionButton)

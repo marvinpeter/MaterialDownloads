@@ -23,3 +23,11 @@ To install this extension head to the Chrome Web Store [here](https://chrome.goo
 - Renamed Fire Downloads to Material Downloads
 - Switched to the Material Design language, to make the extension look and feel like Chrome
 - Added option to open the downloads folder from within the extension
+
+### 2.1.0
+- Added option to copy link to download menu
+
+### 3.0.0
+- Rewritten using Redux and Recompose
+- Removed clear on startup
+- Made context menus smaller, so they do not scroll

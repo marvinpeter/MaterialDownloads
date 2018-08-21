@@ -1,14 +1,10 @@
-import * as path from 'path'
-import { NamedModulesPlugin, optimize, DefinePlugin, SplitChunksPlugin } from 'webpack'
-import * as ExtractTextPlugin from 'extract-text-webpack-plugin'
 import * as CopyWebpackPlugin from 'copy-webpack-plugin'
+import * as path from 'path'
 import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin'
+import { DefinePlugin } from 'webpack'
+import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 
-import * as postcssCssNext from 'postcss-cssnext'
-import * as postcssNestedAncestors from 'postcss-nested-ancestors'
-import * as postcssClean from 'postcss-clean'
-
-const browsers = ['Chrome >= 60']
+const browsers = ['Chrome >= 64']
 
 const rootDir = __dirname
 const srcFolder = path.join(rootDir, 'src')
@@ -17,21 +13,28 @@ const modulesFolder = path.join(rootDir, 'node_modules')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
-const postcssPlugins = [
-    postcssNestedAncestors(),
-    postcssCssNext({ browsers })
-]
-
+// tslint:disable-next-line:readonly-array
 const webpackPlugins: DefinePlugin[] = [
     new DefinePlugin({
         'isDebug': JSON.stringify(!isProduction)
     }),
-    new ExtractTextPlugin('../styles/[name].css'),
+    new HtmlWebpackPlugin({
+        filename: '../views/popup.html',
+        template: './src/views/popup/prerender.tsx',
+        compile: true,
+        inject: false
+    }),
+    new HtmlWebpackPlugin({
+        filename: '../views/options.html',
+        template: './src/views/options/prerender.tsx',
+        compile: true,
+        inject: false
+    }),
     new CopyWebpackPlugin([
         {
-            context: 'src/',
+            context: 'resources/',
             from: {
-                glob: '**/*.{html,png,json}'
+                glob: '**/*'
             },
             to: distFolder
         },
@@ -48,12 +51,34 @@ const webpackPlugins: DefinePlugin[] = [
                 : 'node_modules/react-dom/umd/react-dom.development.js',
             to: path.join(distFolder, 'scripts', 'react-dom.js'),
             toType: 'file'
+        },
+        {
+            from: isProduction
+                ? 'node_modules/redux/dist/redux.min.js'
+                : 'node_modules/redux/dist/redux.js',
+            to: path.join(distFolder, 'scripts', 'redux.js'),
+            toType: 'file'
+        },
+        {
+            from: isProduction
+                ? 'node_modules/react-redux/dist/react-redux.min.js'
+                : 'node_modules/react-redux/dist/react-redux.js',
+            to: path.join(distFolder, 'scripts', 'react-redux.js'),
+            toType: 'file'
+        },
+        {
+            from: isProduction
+                ? 'node_modules/@material-ui/core/umd/material-ui.production.min.js'
+                : 'node_modules/@material-ui/core/umd/material-ui.development.js',
+            to: path.join(distFolder, 'scripts', 'material-ui.js'),
+            toType: 'file'
         }
     ])
 ]
 
+// tslint:disable-next-line:no-if-statement
 if (isProduction) {
-    postcssPlugins.push(postcssClean())
+    // tslint:disable-next-line:no-expression-statement
     webpackPlugins.push(new UglifyJsPlugin() as any)
 }
 
@@ -70,43 +95,36 @@ export default {
     mode: isProduction ? 'production' : 'development',
 
     entry: {
-        popup: './src/popup.tsx',
+        popup: './src/views/popup/index.tsx',
         background: './src/background.ts',
-        options: './src/options.tsx'
+        options: './src/views/options/index.tsx'
     },
 
     output: {
         path: path.join(distFolder, 'scripts'),
         publicPath: '../dist',
-        filename: '[name].js'
+        filename: '[name].js',
+        libraryTarget: 'umd'
     },
 
     externals: {
+        //
+        '@material-ui/core': 'material-ui',
+        'redux': 'Redux',
+        'react-redux': 'ReactRedux',
         'react': 'React',
         'react-dom': 'ReactDOM'
     },
 
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                helpers: {
-                    name: 'helpers',
-                    chunks: 'initial',
-                    test: /helpers/,
-                    enforce: true
-                },
-                vendor: {
-                    name: 'vendor',
-                    chunks: 'initial',
-                    test: /node_modules/,
-                    enforce: true
-                }
-            }
-        }
-    },
-
     module: {
         rules: [
+            {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: { /* Loader options go here */ }
+            },
+
             // Compile TypeScript React files
             {
                 test: /\.tsx?$/,
@@ -122,53 +140,9 @@ export default {
                         ]
                     }
                 }, {
-                    loader: 'awesome-typescript-loader'
+                    loader: 'ts-loader'
                 }]
-
-            },
-
-            // Extract all .global.css to style.css
-            {
-                test: /\.global\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true,
-                            importLoaders: 1
-                        }
-                    }, {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: postcssPlugins
-                        }
-                    }]
-                })
-            },
-
-            // Pipe other styles through css modules and append to style.css
-            {
-                test: /^((?!\.global).)*\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{
-                        loader: 'typings-for-css-modules-loader',
-                        options: {
-                            modules: true,
-                            sourceMap: true,
-                            namedExport: true,
-                            importLoaders: 1,
-                            camelCase: true,
-                            localIdentName: '[local]_[hash:base64:8]',
-                            minimize: true
-                        }
-                    }, {
-                        loader: 'postcss-loader',
-                        options: {
-                            plugins: postcssPlugins
-                        }
-                    }]
-                })
-            },
+            }
         ]
     },
 

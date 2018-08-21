@@ -1,3 +1,4 @@
+// tslint:disable:no-object-mutation
 import * as options from './options'
 
 const canvas = document.createElement('canvas')
@@ -11,6 +12,7 @@ const size = scale * 38
 
 ctx.scale(scale, scale)
 
+// tslint:disable-next-line:no-let
 let color = '#5e5e5e'
 
 /**
@@ -51,7 +53,6 @@ function getProgressIcon(progress: number) {
  * Generate standard toolbar icon
  */
 function getIcon() {
-    console.log(color)
     ctx.clearRect(0, 0, 38, 38)
 
     ctx.strokeStyle = color
@@ -93,5 +94,5 @@ export function setIcon(progress?: number) {
  */
 export function setBadge(count = 0) {
     chrome.browserAction.setBadgeText({ text: '' + (count === 0 ? '' : count) })
-	chrome.browserAction.setBadgeBackgroundColor({ color: '#666666' })
+    chrome.browserAction.setBadgeBackgroundColor({ color: '#666666' })
 }

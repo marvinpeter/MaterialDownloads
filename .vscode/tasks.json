@@ -1,16 +1,5 @@
 {
     "version": "2.0.0",
-    "windows": {
-        "options": {
-            "shell": {
-                "executable": "cmd.exe",
-                "args": [
-                    "/d",
-                    "/c"
-                ]
-            }
-        }
-    },
     "tasks": [
         {
             "label": "Build",

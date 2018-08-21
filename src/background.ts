@@ -1,14 +1,11 @@
 /// <reference path='../node_modules/@types/chrome/index.d.ts' />
-import * as options from './helpers/options'
-import * as downloads from './helpers/downloads'
-import * as toolbarIcon from './helpers/toolbar-icon'
 import * as message from './helpers/message'
-
-options.getOption('startupClear').then((res: boolean) => res && downloads.clear())
+import * as toolbarIcon from './helpers/toolbar-icon'
 
 // Disable download bar
 chrome.downloads.setShelfEnabled(false)
 
+// tslint:disable-next-line:no-let
 let timer: NodeJS.Timer
 const seen = new Set<number>()
 
@@ -25,16 +22,13 @@ function refreshToolbarIcon(items: chrome.downloads.DownloadItem[]) {
 		timer = setInterval(refresh, 500) as any
 	}
 
-	let receivedBytes = 0
-	let totalBytes = 0
-	let unseenCount = 0
+	const [receivedBytes, totalBytes, unseenCount] = items.reduce(([receivedBytes, totalBytes, unseenCount], item) => [
+		receivedBytes + item.bytesReceived,
+		totalBytes + item.totalBytes,
 
-	items.forEach(item => {
-		receivedBytes += item.bytesReceived
-		totalBytes += item.totalBytes
 		// Increment if false (=1)
-		unseenCount += +!seen.has(item.id)
-	})
+		unseenCount + +!seen.has(item.id)
+	], [0, 0, 0])
 
 	const progress = receivedBytes / totalBytes
 	toolbarIcon.setIcon(progress)

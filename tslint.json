@@ -1,4 +1,7 @@
 {
+    "extends": [
+        "tslint-immutable"
+    ],
     "rules": {
         "new-parens": true,
         "no-arg": true,
@@ -7,7 +10,11 @@
         "no-consecutive-blank-lines": false,
         "ban-types": {
             "severity": "warning",
-            "options": [["Object", "Use {} instead."], ["String", "User string instead."]]
+            "options": [
+                ["Object", "Use {} instead."],
+                ["Array", "Use [] instead."],
+                ["String", "User string instead."]
+            ]
         },
         "member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
         "no-inferrable-types": true,
@@ -28,7 +35,8 @@
         "no-empty": [true, "allow-empty-catch"],
         "no-eval": true,
         "no-implicit-dependencies": {
-            "severity": "warning"
+            "severity": "warning",
+            "options": "dev"
         },
         "no-invalid-template-strings": {
             "severity": "warning"
@@ -42,11 +50,6 @@
         },
         "triple-equals": {
             "severity": "warning"
-        },
-        "typeof-compare": true,
-        "align": {
-            "severity": "warning",
-            "options":"parameters"
         },
         "array-type": [true, "array"],
         "arrow-return-shorthand": {
@@ -74,6 +77,16 @@
             "severity": "warning",
             "options": "never"
         },
-        "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore"]
+
+        // Immutability rules
+        "no-array-mutation": true,
+        "no-object-mutation": true,
+        "no-let": true,
+        "no-delete": true,
+
+        // Functional style rules
+        "no-this": true,
+        "no-class": true,
+        "no-loop-statement": true
     }
 }
