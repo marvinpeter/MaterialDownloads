@@ -13,6 +13,7 @@ import * as options from '../../helpers/options'
 import { State } from '../../reducer'
 import { bindActions, dispatch, store } from '../../store'
 import PopupMenu from './menu'
+import { injectGlobal } from 'emotion'
 
 interface Options {
     readonly useAppBar: boolean
@@ -51,16 +52,24 @@ const downloadListActionMapper = bindActions(({ showDownload, openDownload, resu
 }))
 const MappedDownloadList = connect(downloadListPropMapper, downloadListActionMapper)(DownloadList)
 
-const selectTheme = (type: 'dark' | 'light' = 'light') => createMuiTheme({
-    palette: { type },
-    props: {
-        MuiMenuItem: {
-            style: {
-                height: 10
+const selectTheme = (type: 'dark' | 'light' = 'light') => {
+    injectGlobal({
+        body: {
+            background: type === 'dark' ? '#424242' : '#ffffff'
+        }
+    })
+
+    return createMuiTheme({
+        palette: { type },
+        props: {
+            MuiMenuItem: {
+                style: {
+                    height: 10
+                }
             }
         }
-    }
-})
+    })
+}
 
 const enhancer = compose<PopupInnerPros, PopupOutterPros>(
     withState('options', 'setOptions', {
@@ -82,7 +91,7 @@ const enhancer = compose<PopupInnerPros, PopupOutterPros>(
                 theme: selectTheme(theme)
             })
         }
-    }),
+    } as any),
 
     withStateHandlers({ anchorEl: null } as any, {
         handleMenuOpen: _ => event => ({ anchorEl: event.target }),
@@ -125,7 +134,7 @@ if (process.env.NODE_ENV !== 'development' && typeof document !== 'undefined') {
 }
 
 if (typeof document !== 'undefined') {
-    ReactDOM.render(
+    ReactDOM.hydrate(
         <Provider store={store}>
             <Popup />
         </Provider>,

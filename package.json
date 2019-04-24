@@ -1,6 +1,6 @@
 {
   "name": "material-downloads",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Manage your downloads from Chrome's toolbar like you would do with Firefox.",
   "scripts": {
     "buildProduction": "NODE_ENV=production npm run compile",

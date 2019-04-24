@@ -31,3 +31,7 @@ To install this extension head to the Chrome Web Store [here](https://chrome.goo
 - Rewritten using Redux and Recompose
 - Removed clear on startup
 - Made context menus smaller, so they do not scroll
+
+### 3.0.1
+- Updated packages
+- Fixed edges for Chrome 74+ and Edge Preview

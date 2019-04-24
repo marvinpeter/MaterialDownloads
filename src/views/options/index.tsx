@@ -68,5 +68,5 @@ export const Options = enhancer(({ iconColor, theme, useAppBar, colorful, update
 
 if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', () =>
-        ReactDOM.render(<Options />, document.getElementById('options')))
+        ReactDOM.hydrate(<Options />, document.getElementById('options')))
 }

@@ -27,10 +27,9 @@ const template = (rendered: string) => `
     
         body {
             width: 400px;
-            padding: 0 3px 0 3px;
-            margin: 0px;
+            margin: 2px;
             -webkit-font-smoothing: antialiased;
-            background: #f4f4f4;
+            background: #424242;
             -webkit-user-select: none;
             user-select: none;
         }
