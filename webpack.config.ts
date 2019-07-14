@@ -4,7 +4,7 @@ import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import { DefinePlugin } from 'webpack'
 import * as HtmlWebpackPlugin from 'html-webpack-plugin'
 
-const browsers = ['Chrome >= 64']
+const browsers = ['Chrome >= 75']
 
 const rootDir = __dirname
 const srcFolder = path.join(rootDir, 'src')

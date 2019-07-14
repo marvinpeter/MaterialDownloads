@@ -1,7 +1,4 @@
 {
-    "extends": [
-        "tslint-immutable"
-    ],
     "rules": {
         "new-parens": true,
         "no-arg": true,
@@ -11,19 +8,35 @@
         "ban-types": {
             "severity": "warning",
             "options": [
-                ["Object", "Use {} instead."],
-                ["Array", "Use [] instead."],
-                ["String", "User string instead."]
+                [
+                    "Object",
+                    "Use {} instead."
+                ],
+                [
+                    "Array",
+                    "Use [] instead."
+                ],
+                [
+                    "String",
+                    "User string instead."
+                ]
             ]
         },
-        "member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
-        "no-inferrable-types": true,
+        "member-access": [
+            true,
+            "check-accessor",
+            "check-constructor",
+            "check-parameter-property"
+        ],
         "no-internal-module": true,
         "no-parameter-reassignment": true,
         "no-var-requires": true,
         "only-arrow-functions": {
             "severity": "warning",
-            "options": ["allow-declarations", "allow-named-functions"]
+            "options": [
+                "allow-declarations",
+                "allow-named-functions"
+            ]
         },
         "curly": true,
         "no-construct": true,
@@ -32,7 +45,10 @@
         "no-duplicate-variable": {
             "severity": "warning"
         },
-        "no-empty": [true, "allow-empty-catch"],
+        "no-empty": [
+            true,
+            "allow-empty-catch"
+        ],
         "no-eval": true,
         "no-implicit-dependencies": {
             "severity": "warning",
@@ -51,7 +67,10 @@
         "triple-equals": {
             "severity": "warning"
         },
-        "array-type": [true, "array"],
+        "array-type": [
+            true,
+            "array"
+        ],
         "arrow-return-shorthand": {
             "severity": "warning"
         },
@@ -72,21 +91,31 @@
             "severity": "warning",
             "options": "allow-single-concat"
         },
-        "quotemark": [true, "single", "jsx-double"],
+        "quotemark": [
+            true,
+            "double",
+            "jsx-double"
+        ],
         "semicolon": {
             "severity": "warning",
-            "options": "never"
+            "options": [
+                "always",
+                "ignore-interfaces"
+            ]
         },
-
-        // Immutability rules
-        "no-array-mutation": true,
-        "no-object-mutation": true,
-        "no-let": true,
-        "no-delete": true,
-
-        // Functional style rules
-        "no-this": true,
-        "no-class": true,
-        "no-loop-statement": true
+        "trailing-comma": {
+            "severity": "warning",
+            "options": {
+                "multiline": "always",
+                "singleline": "never"
+            }
+        },
+        "typedef": {
+            "severity": "error",
+            "options": [
+                "call-signature",
+                "parameter"
+            ]
+        }
     }
 }

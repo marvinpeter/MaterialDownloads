@@ -1,18 +1,17 @@
-import * as React from 'react'
-import { Provider } from 'react-redux'
+import * as React from "react";
+import { Provider } from "react-redux";
 
-import { store } from '../../store'
-import { Popup } from './index'
+import { store } from "../../store";
+import { Popup } from "./index";
 
-// tslint:disable-next-line:no-object-mutation
 (global as any).chrome = {
     downloads: new Proxy({}, {
-        get: (target, prop: string) => {
-            console.log(prop)
+        get: (_target, _prop: string) => {
             return undefined
-        }
-    })
-}
+        },
+    }),
+};
+
 
 const template = (rendered: string) => `
 <!DOCTYPE html>
@@ -46,23 +45,22 @@ const template = (rendered: string) => `
     <script src="../scripts/popup.js"></script>
 </body>
 
-</html>
-`
+</html>`;
 
 // Exported static site renderer:
-export default (locals, callback) => {
-    const { renderToString } = require('react-dom/server')
-    const { renderStylesToString } = require('emotion-server')
+export default (_locals: any, callback: (_: any, s: string) => void) => {
+    const { renderToString } = require("react-dom/server");
+    const { renderStylesToString } = require("emotion-server");
     const rendered = renderStylesToString(renderToString(
         <Provider store={store} >
             <Popup />
-        </Provider>))
-    const html = template(rendered)
+        </Provider>));
+    const html = template(rendered);
 
     //server side rendering
-    if (typeof callback === 'function') {
-        callback(null, html)
+    if (typeof callback === "function") {
+        callback(null, html);
     } else {
-        return html
+        return html;
     }
-}
+};

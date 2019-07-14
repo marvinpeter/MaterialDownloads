@@ -35,3 +35,8 @@ To install this extension head to the Chrome Web Store [here](https://chrome.goo
 ### 3.0.1
 - Updated packages
 - Fixed edges for Chrome 74+ and Edge Preview
+
+### 3.1.0
+- Updated code guide line
+- Fixed options
+- Added option to show download time

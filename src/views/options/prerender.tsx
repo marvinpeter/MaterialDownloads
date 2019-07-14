@@ -1,6 +1,6 @@
-import * as React from 'react'
+import * as React from "react";
 
-import { Options } from '.'
+import { Options } from ".";
 
 export const template = (rendered: string) => `<!DOCTYPE html>
 <html>
@@ -22,21 +22,19 @@ export const template = (rendered: string) => `<!DOCTYPE html>
     <script src="../scripts/options.js"></script>
 </body>
 
-</html>`
+</html>`;
 
 // Exported static site renderer:
-export default (locals, callback) => {
-    const { renderToString } = require('react-dom/server')
-    const { renderStylesToString } = require('emotion-server')
-    const rendered = renderStylesToString(renderToString(
-        <Options />
-    ))
-    const html = template(rendered)
+export default (_locals: any, callback: (_: any, s: string) => void) => {
+    const { renderToString } = require("react-dom/server");
+    const { renderStylesToString } = require("emotion-server");
+    const rendered = renderStylesToString(renderToString(<Options />));
+    const html = template(rendered);
 
-    //server side rendering
-    if (typeof callback === 'function') {
-        callback(null, html)
+    // server side rendering
+    if (typeof callback === "function") {
+        callback(null, html);
     } else {
-        return html
+        return html;
     }
-}
+};
